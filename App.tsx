@@ -14,7 +14,7 @@ type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const [status, setStatus] = useState<{ incomplete: string[]; complete: string[] }>({ incomplete: ['I have to go to the store'], complete: [] });
+  const [status, setStatus] = useState<{ incomplete: string[]; complete: string[] }>({ incomplete: ['Make a Doc Appointment', 'Go try that new boba place', 'Take sheets to the cleaners'], complete: [] });
   return (
     <StatusContext.Provider value={{status,setStatus}}>
       <NavigationContainer>

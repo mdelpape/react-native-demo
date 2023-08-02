@@ -3,17 +3,11 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import Complete from './Complete';
 import Incomplete from './Incomplete';
 import { useRoute } from '@react-navigation/native';
-import { StatusContext } from './StatusContext';
-
-
 
 export default function Tdp() {
-  const { status, setStatus } = useContext(StatusContext);
   const route = useRoute();
   const { dailyGoals } = route.params as { dailyGoals: string[] };
   const [days, setDays] = useState<{ name: string, past: boolean }[]>([]);
-  // const [status, setStatus] = useState<{ incomplete: string[]; complete: string[] }>({ incomplete: dailyGoals, complete: [] });
-
 
   useEffect(() => {
     const date = new Date();
@@ -34,20 +28,24 @@ export default function Tdp() {
     <View>
       <View style={styles.container}>
         {days.map((day, index) => (
-          <View key={index} style={[styles.circle, day.past ? styles.past : styles.future]} />
+          <View key={index} style={[styles.circle, day.past ? styles.past : styles.future]}>
+            <View key={index} style={[styles.circle, day.past ? styles.past : styles.future]}>
+              <Text style={styles.dayText}>{day.name[0]}</Text>
+            </View>
+          </View>
         ))}
       </View>
       <View>
         <Text style={styles.text}>
           Incompleted
         </Text>
-        <Incomplete/>
+        <Incomplete />
       </View>
       <View>
         <Text style={styles.text}>
           Complete
         </Text>
-        <Complete/>
+        <Complete />
       </View>
     </View>
   );
@@ -72,5 +70,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 25,
-  }
+  },
+  dayText: {
+    textAlign: 'center',
+    lineHeight: 30,
+    color: 'black',
+    fontWeight: 'bold',
+  },
 });

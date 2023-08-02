@@ -13,11 +13,11 @@ export default function Incomplete() {
   }
 
   return (
-    <View >
+    <View style={styles.container}>
       {status.incomplete.map((goal, index) => (
         <View key={index} style={styles.itemContainer}>
-          <Text>{goal}</Text>
-          <Button title="Complete" onPress={() => handleComplete(goal)} />
+          <Text style={styles.goalText} >{goal}</Text>
+          <Button title="Done" onPress={() => handleComplete(goal)} />
         </View>
       ))}
     </View>
@@ -30,4 +30,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  container: {
+    margin: 5,
+  },
+  goalText: {
+    fontStyle: 'italic',
+  }
+
 });

@@ -8,13 +8,17 @@ interface MonthlyProps {
 export default function Monthly({ monthlyGoals }: MonthlyProps) {
   return (
     <View style={styles.container}>
-      {monthlyGoals.map((goal, index) => <Text key={index}>{goal}</Text>)}
+      {monthlyGoals.map((goal, index) => <Text style={styles.goalText} key={index}>{goal}</Text>)}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // Style your container if needed
+   margin: 5,
+  },
+  goalText: {
+    marginVertical: 5,
+    fontStyle: 'italic',
   }
 });

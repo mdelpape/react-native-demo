@@ -6,7 +6,7 @@ export default function Complete() {
   const { status, setStatus } = useContext(StatusContext);
 
   return (
-    <View >
+    <View style={styles.container}>
       {status.complete.map((goal, index) => (
         <View key={index} style={styles.itemContainer}>
           <Text style={styles.completeText}>{goal}</Text>
@@ -24,5 +24,9 @@ const styles = StyleSheet.create({
   },
   completeText: {
     textDecorationLine: 'line-through',
-  }
+    fontStyle: 'italic',
+  },
+  container: {
+    margin: 5,
+  },
 });

@@ -27,7 +27,7 @@ export default function SetGoals() {
   const [modalVisible, setModalVisible] = useState(route.params?.modalVisible || false);
   const [monthlyGoals, setMonthlyGoals] = useState(['Brief for Robertson Project', 'Exercise three days per week'])
   const [ongoingGoals, setOngoingGoals] = useState(['Save for Europe trip', 'Run a half marathon'])
-  const [dailyGoals, setDailyGoals ] = useState(['go to store'])
+  const [dailyGoals, setDailyGoals] = useState([])
 
 
   const navigation = useNavigation<SetGoalsScreenNavigationProp>();
@@ -63,11 +63,13 @@ export default function SetGoals() {
 
   navigation.setOptions({
     headerRight: () => (
-      <Button
-        onPress={() => setModalVisible(true)}
-        title="Add Goal"
-        color="#000"
-      />
+      <View style={styles.addGoal}>
+        <Button
+          onPress={() => setModalVisible(true)}
+          title="Add Goal"
+          color="#000"
+        />
+      </View>
     ),
   });
 
@@ -81,25 +83,26 @@ export default function SetGoals() {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Add your goal</Text>
+            <Text style={styles.modalText}>Add your goal!</Text>
             <TextInput
+              style={styles.input}
               placeholder="Goal title"
               onChangeText={text => setNewGoal(text)}
               value={newGoal}
             />
             <View style={styles.container}>
-              <TouchableOpacity style={styles.button} onPress={() => setAdd('Monthly')}>
+              <TouchableOpacity style={add === 'Monthly' ? styles.modalButtonSelected : styles.modalButton} onPress={() => setAdd('Monthly')}>
                 <Text>Monthly</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => setAdd('Ongoing')}>
+              <TouchableOpacity style={add === 'Ongoing' ? styles.modalButtonSelected : styles.modalButton} onPress={() => setAdd('Ongoing')}>
                 <Text>Ongoing</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => setAdd('Daily')}>
+              <TouchableOpacity style={add === 'Daily' ? styles.modalButtonSelected : styles.modalButton} onPress={() => setAdd('Daily')}>
                 <Text>Daily</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.button} onPress={() => setModalVisible(false)}>
-              <Text onPress={() =>{
+            <TouchableOpacity style={styles.addGoal} onPress={() => setModalVisible(false)}>
+              <Text onPress={() => {
                 handleAddGoal();
                 setModalVisible(!modalVisible)
               }}>Add Goal</Text>
@@ -110,16 +113,16 @@ export default function SetGoals() {
 
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={handleGoToTodaysGoals}>
-          <Text>Today's Goals</Text>
+          <Text>{status.incomplete.length + ' '}Today's Goals</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => setGoalsShown(1)}>
-          <Text>Monthly</Text>
+          <Text>{monthlyGoals.length + ' '}Monthly</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => setGoalsShown(2)}>
-          <Text>Ongoing</Text>
+          <Text>{ongoingGoals.length + ' '}Ongoing</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => setGoalsShown(3)}>
-          <Text>All</Text>
+          <Text>{status.incomplete.length + monthlyGoals.length + ongoingGoals.length + " "}All</Text>
         </TouchableOpacity>
       </View>
 
@@ -144,15 +147,13 @@ const styles = StyleSheet.create({
   monthly: {
     fontSize: 25,
   },
-  ongoing: {
-    fontSize: 25,
-  },
   button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "#A9BCD4",
     padding: 10,
     borderWidth: 1,
     borderColor: 'black',
+    borderRadius: 7,
   },
   centeredView: {
     flex: 1,
@@ -173,10 +174,43 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
   },
   modalText: {
     marginBottom: 15,
     textAlign: "center"
-  }
+  },
+  addGoal: {
+    borderColor: 'black',
+    borderRadius: 7,
+    backgroundColor: '#FF6B6B',
+    minHeight: 20,
+    minWidth: 70
+  },
+
+  input: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    marginBottom: 10,
+    minWidth: 150,
+    height: 25,
+  },
+  modalButton: {
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 7,
+    margin: 10
+  },
+  modalButtonSelected: {
+    alignItems: "center",
+    backgroundColor: "#A0A5BD",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 7,
+    margin: 10
+  },
 });
