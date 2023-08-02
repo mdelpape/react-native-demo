@@ -29,7 +29,6 @@ export default function SetGoals() {
   const [ongoingGoals, setOngoingGoals] = useState(['Save for Europe trip', 'Run a half marathon'])
   const [dailyGoals, setDailyGoals] = useState([])
 
-
   const navigation = useNavigation<SetGoalsScreenNavigationProp>();
 
   const handleGoToTodaysGoals = () => {
@@ -58,8 +57,6 @@ export default function SetGoals() {
     setAdd('');
     setNewGoal('');
   };
-
-
 
   navigation.setOptions({
     headerRight: () => (

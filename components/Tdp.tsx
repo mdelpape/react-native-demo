@@ -2,11 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import Complete from './Complete';
 import Incomplete from './Incomplete';
-import { useRoute } from '@react-navigation/native';
 
 export default function Tdp() {
-  const route = useRoute();
-  const { dailyGoals } = route.params as { dailyGoals: string[] };
   const [days, setDays] = useState<{ name: string, past: boolean }[]>([]);
 
   useEffect(() => {
