@@ -8,7 +8,6 @@ import { useState } from 'react';
 type RootStackParamList = {
   "Set Your Goals": undefined;
   "Today's Goals": { dailyGoals: string[] };
-  // add other screen routes here
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
