@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -58,17 +58,20 @@ export default function SetGoals() {
     setNewGoal('');
   };
 
-  navigation.setOptions({
-    headerRight: () => (
-      <View style={styles.addGoal}>
-        <Button
-          onPress={() => setModalVisible(true)}
-          title="Add Goal"
-          color="#000"
-        />
-      </View>
-    ),
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <View style={styles.addGoal}>
+          <Button
+            onPress={() => setModalVisible(true)}
+            title="Add Goal"
+            color="#000"
+          />
+        </View>
+      ),
+    });
+  }, [])
+
 
   return (
     <View>
