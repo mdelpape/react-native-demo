@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Modal, TextInput, Animated, Dimensions } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Monthly from './Monthly'
@@ -19,6 +19,7 @@ type SetGoalsScreenNavigationProp = StackNavigationProp<
 type SetGoalsScreenRouteProp = RouteProp<RootStackParamList, 'Set Your Goals'>;
 
 export default function SetGoals() {
+  const animatedValue = new Animated.Value(0);
   const { status, setStatus } = useContext(StatusContext);
   const [goalsShown, setGoalsShown] = useState(3)
   const [add, setAdd] = useState('')
@@ -29,6 +30,42 @@ export default function SetGoals() {
   const [ongoingGoals, setOngoingGoals] = useState(['Save for Europe trip', 'Run a half marathon'])
   const [dailyGoals, setDailyGoals] = useState([])
 
+  //get access to width of screen
+  const width = Dimensions.get('window').width;
+
+  const startAnimation = () => {
+    Animated.sequence([
+      Animated.timing(animatedValue, {
+        toValue: width-100,
+        duration: 5000,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animatedValue, {
+        toValue: 0,
+        duration: 5000,
+        useNativeDriver: true,
+      }),
+    ]).start(() => startAnimation());
+  }
+
+  useEffect(() => {
+    startAnimation();
+  }, [])
+
+  const animatedStyle = {
+    top: 300,
+    width: 100,
+    height: 100,
+    backgroundColor: 'red',
+    borderRadius: 50,
+    position: 'absolute',
+    transform: [
+      {
+        translateX: animatedValue,
+      },
+    ],
+  };
+
   const navigation = useNavigation<SetGoalsScreenNavigationProp>();
 
   const handleGoToTodaysGoals = () => {
@@ -36,6 +73,7 @@ export default function SetGoals() {
   };
 
   const handleAddGoal = () => {
+
     if (add === 'Daily') {
       setStatus(prevStatus => ({
         ...prevStatus,
@@ -75,6 +113,8 @@ export default function SetGoals() {
 
   return (
     <View>
+      <Animated.View style={animatedStyle}/>
+
       <Modal animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -213,4 +253,5 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     margin: 10
   },
+
 });

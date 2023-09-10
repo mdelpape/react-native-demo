@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1692559377101" clover="3.2.0">
-  <project timestamp="1692559377101" name="All files">
+<coverage generated="1692633263562" clover="3.2.0">
+  <project timestamp="1692633263562" name="All files">
     <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2" elements="8" coveredelements="7" complexity="0" loc="5" ncloc="5" packages="1" files="2" classes="2"/>
     <file name="Complete.tsx" path="/Users/michaeldelpape/Kromeon/react-native-demo/components/Complete.tsx">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { StatusContext } from '../components/StatusContext.tsx';
-import Complete from '../components/Complete';
+import { StatusContext } from '../components/StatusContext.js';
+import Complete from '../components/Complete.js';
 import '@testing-library/jest-native/extend-expect';
 
 describe('Complete component', () => {
